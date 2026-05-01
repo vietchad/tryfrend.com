@@ -11,52 +11,46 @@
     <meta property="og:url" content="https://tryfrend.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🟣</text></svg>">
 </head>
 <body>
-    <!-- Animated background orbs -->
-    <div class="bg-orbs" aria-hidden="true">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
-        <div class="orb orb-4"></div>
+    <!-- Soft ambient glow blobs -->
+    <div class="bg-glow" aria-hidden="true">
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+        <div class="glow glow-3"></div>
     </div>
-
-    <!-- Noise texture overlay -->
-    <div class="noise-overlay" aria-hidden="true"></div>
 
     <main class="container">
         <div class="content">
-            <!-- Logo / Wordmark -->
-            <div class="logo-wrapper">
-                <h1 class="wordmark">frend</h1>
+            <!-- Logo SVG -->
+            <div class="logo-wrapper" id="logo">
+                <img src="logo.svg" alt="frend" class="logo-img">
             </div>
 
-            <!-- Divider line -->
-            <div class="divider">
-                <span class="divider-line"></span>
-                <span class="divider-dot"></span>
-                <span class="divider-line"></span>
+            <!-- Coming Soon Text -->
+            <div class="coming-soon-section">
+                <p class="coming-soon-text">coming soon</p>
             </div>
 
-            <!-- Tagline -->
-            <p class="tagline">something special is on the way</p>
+            <!-- Subtle divider -->
+            <div class="divider" aria-hidden="true"></div>
 
-            <!-- Coming Soon Badge -->
-            <div class="badge">
-                <span class="badge-dot"></span>
-                <span>Coming Soon</span>
-            </div>
-
-            <!-- Email Signup -->
+            <!-- Email Signup — powered by Formsubmit.co (sends to hello@tryfrend.com) -->
             <div class="signup-section">
                 <p class="signup-text">Be the first to know when we launch</p>
-                <form class="signup-form" id="signup-form" onsubmit="handleSubmit(event)">
+                <form class="signup-form" id="signup-form" action="https://formsubmit.co/hello@tryfrend.com" method="POST">
+                    <!-- Formsubmit config: disable captcha, redirect back to site -->
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_next" value="https://tryfrend.com?submitted=true">
+                    <input type="hidden" name="_subject" value="New frend waitlist signup!">
+                    <input type="text" name="_honey" style="display:none">
                     <div class="input-wrapper">
                         <input 
                             type="email" 
+                            name="email"
                             id="email-input"
                             placeholder="your@email.com" 
                             required
@@ -79,47 +73,22 @@
     </main>
 
     <script>
-        function handleSubmit(e) {
-            e.preventDefault();
+        // Show confirmation if redirected back after form submission
+        if (window.location.search.includes('submitted=true')) {
             const message = document.getElementById('form-message');
             const input = document.getElementById('email-input');
             const btn = document.getElementById('notify-btn');
             
-            // Animate button
-            btn.classList.add('submitted');
             btn.innerHTML = '<span class="btn-text">✓ You\'re in!</span>';
-            
-            // Update message
+            btn.classList.add('submitted');
             message.textContent = "We'll be in touch soon!";
-            message.style.color = '#a78bfa';
-            
-            // Disable input
-            input.disabled = true;
-            input.value = '';
+            message.style.color = '#1f003d';
             input.placeholder = 'Thanks for signing up!';
-            
-            // Reset after 4 seconds
-            setTimeout(() => {
-                btn.classList.remove('submitted');
-                btn.innerHTML = '<span class="btn-text">Notify Me</span><span class="btn-arrow">→</span>';
-                message.textContent = "No spam, ever. We promise.";
-                message.style.color = '';
-                input.disabled = false;
-                input.value = '';
-                input.placeholder = 'your@email.com';
-            }, 4000);
-        }
+            input.disabled = true;
 
-        // Parallax effect for orbs on mouse move
-        document.addEventListener('mousemove', (e) => {
-            const x = (e.clientX / window.innerWidth - 0.5) * 2;
-            const y = (e.clientY / window.innerHeight - 0.5) * 2;
-            
-            document.querySelectorAll('.orb').forEach((orb, i) => {
-                const speed = (i + 1) * 8;
-                orb.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
-            });
-        });
+            // Clean URL
+            history.replaceState(null, '', window.location.pathname);
+        }
     </script>
 </body>
 </html>
