@@ -1,0 +1,458 @@
+/* ===================================
+   frend — Coming Soon Page
+   Color palette derived from brand logo:
+   Light purple/lavender + Deep dark purple
+   =================================== */
+
+:root {
+    --bg-deep: #0d0618;
+    --bg-mid: #1a0d2e;
+    --purple-dark: #2d1b4e;
+    --purple-mid: #6b3fa0;
+    --purple-light: #a78bfa;
+    --purple-glow: #c4b5fd;
+    --lavender: #d4c5f0;
+    --lavender-light: #e8dff5;
+    --white: #f5f0ff;
+    --white-pure: #ffffff;
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-deep);
+    color: var(--lavender);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* ===================================
+   Animated Background Orbs
+   =================================== */
+
+.bg-orbs {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    transition: transform 0.3s ease-out;
+}
+
+.orb-1 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, #7c3aed 0%, transparent 70%);
+    top: -10%;
+    right: -5%;
+    animation: float-1 18s ease-in-out infinite;
+}
+
+.orb-2 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, #6d28d9 0%, transparent 70%);
+    bottom: -15%;
+    left: -10%;
+    animation: float-2 22s ease-in-out infinite;
+}
+
+.orb-3 {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, #8b5cf6 0%, transparent 70%);
+    top: 40%;
+    left: 30%;
+    animation: float-3 15s ease-in-out infinite;
+    opacity: 0.25;
+}
+
+.orb-4 {
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, #a78bfa 0%, transparent 70%);
+    top: 20%;
+    right: 25%;
+    animation: float-4 20s ease-in-out infinite;
+    opacity: 0.2;
+}
+
+@keyframes float-1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(-30px, 40px) scale(1.05); }
+    50% { transform: translate(20px, -20px) scale(0.95); }
+    75% { transform: translate(-15px, -30px) scale(1.02); }
+}
+
+@keyframes float-2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(40px, -30px) scale(1.08); }
+    66% { transform: translate(-20px, 20px) scale(0.92); }
+}
+
+@keyframes float-3 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(50px, -40px); }
+}
+
+@keyframes float-4 {
+    0%, 100% { transform: translate(0, 0); }
+    33% { transform: translate(-30px, 30px); }
+    66% { transform: translate(20px, -20px); }
+}
+
+/* ===================================
+   Noise Texture Overlay
+   =================================== */
+
+.noise-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
+}
+
+/* ===================================
+   Main Container
+   =================================== */
+
+.container {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    animation: fadeInUp 1.2s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===================================
+   Logo / Wordmark
+   =================================== */
+
+.logo-wrapper {
+    position: relative;
+}
+
+.wordmark {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: clamp(4rem, 12vw, 8rem);
+    font-weight: 400;
+    color: var(--lavender-light);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    text-shadow: 
+        0 0 40px rgba(139, 92, 246, 0.3),
+        0 0 80px rgba(139, 92, 246, 0.15);
+    animation: glowPulse 4s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+    0%, 100% {
+        text-shadow: 
+            0 0 40px rgba(139, 92, 246, 0.3),
+            0 0 80px rgba(139, 92, 246, 0.15);
+    }
+    50% {
+        text-shadow: 
+            0 0 60px rgba(139, 92, 246, 0.5),
+            0 0 120px rgba(139, 92, 246, 0.25);
+    }
+}
+
+/* ===================================
+   Divider
+   =================================== */
+
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    animation: fadeInUp 1.2s ease-out 0.2s both;
+}
+
+.divider-line {
+    display: block;
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--purple-mid), transparent);
+}
+
+.divider-dot {
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--purple-light);
+    box-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
+}
+
+/* ===================================
+   Tagline
+   =================================== */
+
+.tagline {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    font-weight: 300;
+    color: var(--lavender);
+    letter-spacing: 0.15em;
+    text-transform: lowercase;
+    opacity: 0.8;
+    animation: fadeInUp 1.2s ease-out 0.3s both;
+}
+
+/* ===================================
+   Coming Soon Badge
+   =================================== */
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 100px;
+    background: rgba(139, 92, 246, 0.08);
+    backdrop-filter: blur(10px);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--purple-glow);
+    animation: fadeInUp 1.2s ease-out 0.4s both;
+}
+
+.badge-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--purple-light);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+/* ===================================
+   Email Signup
+   =================================== */
+
+.signup-section {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    animation: fadeInUp 1.2s ease-out 0.5s both;
+}
+
+.signup-text {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--lavender);
+    opacity: 0.7;
+}
+
+.input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    border-radius: 12px;
+    padding: 4px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.input-wrapper:focus-within {
+    border-color: rgba(139, 92, 246, 0.5);
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.15);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.input-wrapper input {
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    padding: 12px 16px;
+    width: 240px;
+}
+
+.input-wrapper input::placeholder {
+    color: rgba(196, 181, 253, 0.4);
+}
+
+.input-wrapper input:disabled {
+    opacity: 0.5;
+}
+
+.input-wrapper button {
+    background: linear-gradient(135deg, var(--purple-mid), #7c3aed);
+    border: none;
+    color: var(--white-pure);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.input-wrapper button:hover {
+    background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
+}
+
+.input-wrapper button:active {
+    transform: translateY(0);
+}
+
+.input-wrapper button.submitted {
+    background: linear-gradient(135deg, #059669, #10b981);
+}
+
+.btn-arrow {
+    transition: transform 0.3s ease;
+}
+
+.input-wrapper button:hover .btn-arrow {
+    transform: translateX(3px);
+}
+
+.signup-note {
+    font-size: 0.75rem;
+    color: var(--lavender);
+    opacity: 0.4;
+    transition: all 0.3s ease;
+}
+
+/* ===================================
+   Footer
+   =================================== */
+
+.footer {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: fadeInUp 1.2s ease-out 0.7s both;
+}
+
+.footer p {
+    font-size: 0.75rem;
+    color: var(--lavender);
+    opacity: 0.3;
+    letter-spacing: 0.05em;
+}
+
+/* ===================================
+   Responsive
+   =================================== */
+
+@media (max-width: 640px) {
+    .container {
+        padding: 1.5rem;
+    }
+
+    .input-wrapper {
+        flex-direction: column;
+        width: 100%;
+        max-width: 320px;
+        padding: 4px;
+    }
+
+    .input-wrapper input {
+        width: 100%;
+        text-align: center;
+    }
+
+    .input-wrapper button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .divider-line {
+        width: 40px;
+    }
+
+    .orb-1 { width: 300px; height: 300px; }
+    .orb-2 { width: 250px; height: 250px; }
+    .orb-3 { width: 180px; height: 180px; }
+    .orb-4 { width: 120px; height: 120px; }
+}
+
+@media (max-width: 380px) {
+    .wordmark {
+        font-size: 3.5rem;
+    }
+
+    .tagline {
+        font-size: 0.9rem;
+    }
+}
+
+/* ===================================
+   Selection Style
+   =================================== */
+
+::selection {
+    background: rgba(139, 92, 246, 0.3);
+    color: var(--white);
+}

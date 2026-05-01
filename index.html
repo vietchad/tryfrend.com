@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>frend — Coming Soon</title>
+    <meta name="description" content="frend is coming soon. Something special is on the way. Stay tuned.">
+    <meta property="og:title" content="frend — Coming Soon">
+    <meta property="og:description" content="Something special is on the way. Stay tuned.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tryfrend.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🟣</text></svg>">
+</head>
+<body>
+    <!-- Animated background orbs -->
+    <div class="bg-orbs" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+    </div>
+
+    <!-- Noise texture overlay -->
+    <div class="noise-overlay" aria-hidden="true"></div>
+
+    <main class="container">
+        <div class="content">
+            <!-- Logo / Wordmark -->
+            <div class="logo-wrapper">
+                <h1 class="wordmark">frend</h1>
+            </div>
+
+            <!-- Divider line -->
+            <div class="divider">
+                <span class="divider-line"></span>
+                <span class="divider-dot"></span>
+                <span class="divider-line"></span>
+            </div>
+
+            <!-- Tagline -->
+            <p class="tagline">something special is on the way</p>
+
+            <!-- Coming Soon Badge -->
+            <div class="badge">
+                <span class="badge-dot"></span>
+                <span>Coming Soon</span>
+            </div>
+
+            <!-- Email Signup -->
+            <div class="signup-section">
+                <p class="signup-text">Be the first to know when we launch</p>
+                <form class="signup-form" id="signup-form" onsubmit="handleSubmit(event)">
+                    <div class="input-wrapper">
+                        <input 
+                            type="email" 
+                            id="email-input"
+                            placeholder="your@email.com" 
+                            required
+                            autocomplete="email"
+                        >
+                        <button type="submit" id="notify-btn">
+                            <span class="btn-text">Notify Me</span>
+                            <span class="btn-arrow">→</span>
+                        </button>
+                    </div>
+                </form>
+                <p class="signup-note" id="form-message">No spam, ever. We promise.</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© 2025 frend. All rights reserved.</p>
+        </footer>
+    </main>
+
+    <script>
+        function handleSubmit(e) {
+            e.preventDefault();
+            const message = document.getElementById('form-message');
+            const input = document.getElementById('email-input');
+            const btn = document.getElementById('notify-btn');
+            
+            // Animate button
+            btn.classList.add('submitted');
+            btn.innerHTML = '<span class="btn-text">✓ You\'re in!</span>';
+            
+            // Update message
+            message.textContent = "We'll be in touch soon!";
+            message.style.color = '#a78bfa';
+            
+            // Disable input
+            input.disabled = true;
+            input.value = '';
+            input.placeholder = 'Thanks for signing up!';
+            
+            // Reset after 4 seconds
+            setTimeout(() => {
+                btn.classList.remove('submitted');
+                btn.innerHTML = '<span class="btn-text">Notify Me</span><span class="btn-arrow">→</span>';
+                message.textContent = "No spam, ever. We promise.";
+                message.style.color = '';
+                input.disabled = false;
+                input.value = '';
+                input.placeholder = 'your@email.com';
+            }, 4000);
+        }
+
+        // Parallax effect for orbs on mouse move
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 2;
+            const y = (e.clientY / window.innerHeight - 0.5) * 2;
+            
+            document.querySelectorAll('.orb').forEach((orb, i) => {
+                const speed = (i + 1) * 8;
+                orb.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
